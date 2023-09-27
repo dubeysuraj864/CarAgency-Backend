@@ -49,9 +49,6 @@ switch ($method) {
     case "POST":
 
         $customerPostData = json_decode(file_get_contents("php://input"));
-        // echo "success Data";
-        // print_r($customerPostData);
-        // $customerImage = $customerPostData->customerImage;
         $customerName = $customerPostData->customerName;
         $customerEmail = $customerPostData->customerEmail;
         $customerPassword = $customerPostData->customerPassword;

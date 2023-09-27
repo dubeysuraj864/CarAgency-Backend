@@ -26,7 +26,7 @@ switch ($method) {
 
             // echo "get user id----".$agencyId; die;
 
-            $getAgencyRow = mysqli_query($db_conn, "SELECT * FROM agencies WHERE agencyId ='$agencyId'");
+            $getAgencyRow = mysqli_query($db_conn, "SELECT * FROM agency WHERE agencyId ='$agencyId'");
             while ($agencyRow = mysqli_fetch_array($getAgencyRow)) {
                 $json_array['rowAgencyData'] = array('agencyId' => $agencyRow['agencyId'], 'agencyName' => $agencyRow['agencyName'], 'agencyEmail' => $agencyRow['agencyEmail'], 'agencyPassword' => $agencyRow['agencyPassword']);
             }
@@ -34,7 +34,7 @@ switch ($method) {
             return;
         }
 
-        $allAgency = mysqli_query($db_conn, "SELECT * FROM agencies");
+        $allAgency = mysqli_query($db_conn, "SELECT * FROM agency");
         if (mysqli_num_rows($allAgency) > 0) {
             while ($row = mysqli_fetch_array($allAgency)) {
                 $json_array["agencyData"][] = array("id" => $row["agencyId"], "agencyName" => $row["agencyName"], "agencyEmail" => $row["agencyEmail"], "agencyPassword" => $row["agencyPassword"]);
@@ -46,26 +46,23 @@ switch ($method) {
         }
         break;
 
-    case "POST":
+        case "POST":
 
-        $agencyPostData = json_decode(file_get_contents("php://input"));
-        // echo "success Data";
-        // print_r($agencyPostData);
-        // $customerImage = $agencyPostData->customerImage;
-        $agencyName = $agencyPostData->agencyName;
-        $agencyEmail = $agencyPostData->agencyEmail;
-        $agencyPassword = $agencyPostData->agencyPassword;
-
-        $result = mysqli_query($db_conn, "INSERT INTO agencies (agencyName,agencyEmail,agencyPassword) VALUES('$agencyName','$agencyEmail','$agencyPassword')");
-
-        if ($result) {
-            echo json_encode(["success" => "Agency user added successfully"]);
-        } else {
-            echo json_encode(["success" => "Please check the agency data"]);
-            return;
-        }
-
-        break;
+            $agencyPostData = json_decode(file_get_contents("php://input"));
+            $agencyName = $agencyPostData->agencyName;
+            $agencyEmail = $agencyPostData->agencyEmail;
+            $agencyPassword = $agencyPostData->agencyPassword;
+    
+            $result = mysqli_query($db_conn, "INSERT INTO agency (agencyName,agencyEmail,agencyPassword) VALUES('$agencyName','$agencyEmail','$agencyPassword')");
+    
+            if ($result) {
+                echo json_encode(["success" => "agency added successfully"]);
+            } else {
+                echo json_encode(["success" => "Please check the agency data"]);
+                return;
+            }
+    
+            break;
 
     case "DELETE":
 
@@ -73,7 +70,7 @@ switch ($method) {
 
         // echo "message agencyId-------".$path[4]; die;
 
-        $result = mysqli_query($db_conn, "DELETE FROM agencies WHERE agencyId = '$path[3]' ");
+        $result = mysqli_query($db_conn, "DELETE FROM agency WHERE agencyId = '$path[3]' ");
         if ($result) {
             echo json_encode(["success" => "Agency record Deleted successfully"]);
             return;
@@ -94,10 +91,10 @@ switch ($method) {
         $agencyPassword = $agencyUpdate->agencyPassword;
 
 
-        $updateCustomer = mysqli_query($db_conn, "UPDATE agencies SET agencyName='$agencyName', agencyEmail='$agencyEmail',agencyPassword='$agencyPassword' WHERE agencyId ='$agencyId' ");
+        $updateAgency = mysqli_query($db_conn, "UPDATE agency SET agencyName='$agencyName', agencyEmail='$agencyEmail',agencyPassword='$agencyPassword' WHERE agencyId ='$agencyId' ");
 
 
-        if ($updateCustomer) {
+        if ($updateAgency) {
             echo json_encode(["success" => "Agency record Updated successfully"]);
             return;
         } else {
