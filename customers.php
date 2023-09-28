@@ -37,7 +37,7 @@ switch ($method) {
         $allCustomer = mysqli_query($db_conn, "SELECT * FROM customers");
         if (mysqli_num_rows($allCustomer) > 0) {
             while ($row = mysqli_fetch_array($allCustomer)) {
-                $json_array["customerData"][] = array("id" => $row["customerId"], "customerName" => $row["customerName"], "customerEmail"=> $row["customerEmail"], "customerPassword" => $row["customerPassword"]);
+                $json_array["customerData"][] = array("id" => $row["customerId"], "customerName" => $row["customerName"], "customerEmail" => $row["customerEmail"], "customerPassword" => $row["customerPassword"]);
             }
             echo json_encode($json_array["customerData"]);
             return;
@@ -89,7 +89,7 @@ switch ($method) {
         $customerName = $customerUpdate->customerName;
         $customerEmail = $customerUpdate->customerEmail;
         $customerPassword = $customerUpdate->customerPassword;
-     
+
 
         $updateCustomer = mysqli_query($db_conn, "UPDATE customers SET customerName='$customerName', customerEmail='$customerEmail',customerPassword='$customerPassword' WHERE customerId ='$customerId' ");
 
