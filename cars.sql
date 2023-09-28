@@ -1,9 +1,9 @@
 -- Create the 'cars' table
 CREATE TABLE cars (
-    vehicleId INT AUTO_INCREMENT PRIMARY KEY,
+    vehicleId INT(11) AUTO_INCREMENT PRIMARY KEY,
     vehicleModel VARCHAR(255) NOT NULL,
     vehicleNumber VARCHAR(20) NOT NULL,
-    vehicleSeats INT NOT NULL,
+    vehicleSeats INT(11) NOT NULL,
     vehicleRent DECIMAL(8, 2) NOT NULL
 );
 
